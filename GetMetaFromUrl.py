@@ -32,9 +32,8 @@ with open("url.tsv", "r") as f:
     progress = 0
         
     for i in all_the_urls:
-        print(i)
+        progress += 1
         if i == []: #searching for empy line
-            progress += 1
             print(str(100*progress/(file_len("url.tsv")))+"% - Empty line skipped")
         else:
             try:
@@ -42,7 +41,7 @@ with open("url.tsv", "r") as f:
                 print(str(100*progress/(file_len("url.tsv")))+"% - Running: "+str(i[0]))
                 GetMetaFromUrl(str(i[0]).strip())
             
-            except ValueError:
+            except Exception as e:
                 f = open('error-log.txt', 'a')
-                f.write(str(i[0])+",")
+                f.write(str(i[0])+" - "+e+",")
                 f.close()
