@@ -40,7 +40,7 @@ with open("url.tsv", "r") as f:
             try:
                 progress += 1
                 print(str(100*progress/(file_len("url.tsv")))+"% - Running: "+str(i[0]))
-                GetMetaFromUrl(str(i[0]))
+                GetMetaFromUrl(str(i[0]).strip())
             
             except ValueError:
                 f = open('error-log.txt', 'a')
