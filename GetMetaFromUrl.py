@@ -29,18 +29,20 @@ def file_len(fname):
 
 with open("url.tsv", "r") as f:
     all_the_urls = csv.reader(f, dialect="excel-tab")
-    progress = 0
+    progress = 0 #declaring the progress counter
+    total_lines_number = int(file_len("url.tsv")) #total lines, use that for calculating progress
         
     for i in all_the_urls:
         progress += 1
         if i == []: #searching for empy line
-            print(str(100*progress/(file_len("url.tsv")))+"% - Empty line skipped")
+            print(str(int(100*progress/total_lines_number))+"% - Empty line skipped")
         else:
             try:
-                print(str(100*progress/(file_len("url.tsv")))+"% - Running: "+str(i[0]))
-                GetMetaFromUrl(str(i[0]).strip())
+                print(str(int(100*progress/total_lines_number))+"% - Running: "+str(i[0]))
+                GetMetaFromUrl(str(i[0]).strip()) #get description and title, strip removes spaces from url
             
             except Exception as e:
+                print(str(int(100*progress/total_lines_number))+"% - Error, see the log: "+str(i[0]))
                 f = open('error-log.txt', 'a')
                 f.write(str(i[0])+" - "+str(e)+"\n")
                 f.close()
